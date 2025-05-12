@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reino das Canecas | Canecas Personalizadas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #c4a1da;
+            --secondary-color: #9f73cf;
+            --accent-color: #7d4fa6;
+            --text-color: #333;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header */
+        header {
+            background-color: #fff;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+
+        .logo-text {
+            margin-left: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            cursor: pointer;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            bottom: -5px;
+            left: 0;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/api/placeholder/1200/600') center/cover no-repeat;
+            opacity: 0.2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 50px;
+            padding: 5px;
+            display: flex;
+            box-shadow: var(--shadow);
+        }
+
+        .search-bar input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 15px 20px;
+            border-radius: 50px 0 0 50px;
+            font-size: 1rem;
+        }
+
+        .search-bar button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-bar button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Products Section */
+        .products {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--accent-color);
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 3px;
+            background-color: var(--accent-color);
+            margin: 10px auto 0;
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: #fff;
+            border: 1px solid var(--primary-color);
+            color: var(--accent-color);
+            padding: 8px 16px;
+            margin: 5px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .product-description {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .buy-btn {
+            display: block;
+            width: 100%;
+            background-color: var(--accent-color);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .buy-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 60px 0;
+            background-color: #f9f9f9;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .feature-description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* About Section */
+        .about {
+            padding: 60px 0;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            padding: 60px 0;
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+        }
+
+        .newsletter h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+
+        .newsletter-form button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-form button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Whatsapp button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background-color: #25D366;
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: var(--shadow);
+            z-index: 999;
+            transition: var(--transition);
+        }
+
+        .whatsapp-float i {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+
+        .whatsapp-float:hover {
+            background-color: #128C7E;
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image, .about-text {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: block;
+            }
+
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                box-shadow: var(--shadow);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+
+            nav.active {
+                max-height: 300px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .whatsapp-float {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+
+            .whatsapp-float i {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo-text {
+                font-size: 1.2rem;
+            }
+
+            .search-bar {
+                flex-direction: column;
+                border-radius: 10px;
+                padding: 10px;
+            }
+
+            .search-bar input {
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+
+            .search-bar button {
+                border-radius: 5px;
+                width: 100%;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form input {
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+
+            .newsletter-form button {
+                border-radius: 5px;
+                width: 100%;
+            }
+
+            .whatsapp-float {
+                left: 15px;
+                bottom: 15px;
+                padding: 5px 10px;
+            }
+
+            .back-to-top {
+                right: 15px;
+                bottom: 15px;
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="img/logo.jpeg" alt="Logo Reino das Canecas">
+                <div class="logo-text">Reino das Canecas</div>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Produtos</a></li>
+                    <li><a href="#about">Sobre Nós</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1>Canecas Personalizadas para Todos os Momentos</h1>
+            <p>Transforme seus momentos especiais com nossas canecas únicas e personalizadas. Perfeitas para presentes, lembranças ou para você mesmo!</p>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Pesquise canecas (ex: filmes, séries, profissões...)">
+                <button id="search-button"><i class="fas fa-search"></i> Buscar</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nossas Canecas</h2>
+            </div>
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="filmes">Filmes</button>
+                <button class="filter-btn" data-filter="series">Séries</button>
+                <button class="filter-btn" data-filter="profissoes">Profissões</button>
+                <button class="filter-btn" data-filter="personalizadas">Personalizadas</button>
+            </div>
+            <div class="product-grid" id="product-grid">
+                <!-- Caneca 1 -->
+                <div class="product-card" data-category="filmes">
+                    <div class="product-image">
+                        <img src="img/starw.jpeg" alt="Caneca Star Wars">
+                        <span class="product-tag">Filmes</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Caneca Star Wars</h3>
+                        <p class="product-description">Caneca preta com ilustração dos personagens icônicos de Star Wars. Material cerâmico de alta qualidade.</p>
+                        <div class="product-price">R$ 49,90</div>
+                        <a href="https://wa.me/5585999107313?text=Olá, gostaria de comprar a Caneca Star Wars" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Caneca 2 -->
+                <div class="product-card" data-category="series">
+                    <div class="product-image">
+                        <img src="img/casamento.jpeg" alt="Caneca Casamento">
+                        <span class="product-tag">Séries</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Caneca Casamento</h3>
+                        <p class="product-description">Caneca com convite para casamento, padrinhos e etc.</p>
+                        <div class="product-price">R$ 45,90</div>
+                        <a href="https://wa.me/5585999107313?text=Olá, gostaria de comprar a Caneca Casamento" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Caneca 3 -->
+                <div class="product-card" data-category="profissoes">
+                    <div class="product-image">
+                        <img src="img/dorama.jpeg" alt="Caneca Dorama">
+                        <span class="product-tag">Profissões</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Caneca Dorama</h3>
+                        <p class="product-description">Caneca com gesto característico de dorama. Especial para fãs.</p>
+                        <div class="product-price">R$ 42,90</div>
+                        <a href="https://wa.me/5585999107313?text=Olá, gostaria de comprar a Caneca Dorama" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Caneca 4 -->
+                <div class="product-card" data-category="personalizadas">
+                    <div class="product-image">
+                        <img src="/api/placeholder/300/300" alt="Caneca Personalizada com Foto">
+                        <span class="product-tag">Personalizada</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Caneca Personalizada com Foto</h3>
+                        <p class="product-description">Caneca branca personalizada com sua foto favorita. Envie sua imagem e criamos uma caneca única.</p>
+                        <div class="product-price">R$ 39,90</div>
+                        <a href="https://wa.me/5585999107313?text=Olá, gostaria de comprar uma Caneca Personalizada com Foto" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Caneca 5 -->
+                <div class="product-card" data-category="filmes">
+                    <div class="product-image">
+                        <img src="img/cafe_cerveja.jpeg" alt="Caneca Café - Cerveja">
+                        <span class="product-tag">Filmes</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Caneca Café - Cerveja</h3>
+                        <p class="product-description">Caneca com estampa de café e cerveija. Perfeita para fãs de ambas bebidas.</p>
+                        <div class="product-price">R$ 47,90</div>
+                        <a href="https://wa.me/5585999107313?text=Olá, gostaria de comprar a Caneca Café - Cerveja" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Caneca 6 -->
+                <div class="product-card" data-category="series">
+                    <div class="product-image">
+                        <img src="/api/placeholder/300/300" alt="Caneca Breaking Bad">
+                        <span class="product-tag">Séries</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Caneca Breaking Bad</h3>
+                        <p class="product-description">Caneca verde com o logo e elementos químicos da série Breaking Bad. Capacidade: 300ml.</p>
+                        <div class="product-price">R$ 44,90</div>
+                        <a href="https://wa.me/5585999107313?text=Olá, gostaria de comprar a Caneca Breaking Bad" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Caneca 7 -->
+                <div class="product-card" data-category="profissoes">
+                    <div class="product-image">
+                        <img src="/api/placeholder/300/300" alt="Caneca Professor">
+                        <span class="product-tag">Profissões</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Caneca Professor</h3>
+                        <p class="product-description">Caneca branca com frases motivacionais para professores. O presente perfeito para educadores.</p>
+                        <div class="product-price">R$ 41,90</div>
+                        <a href="https://wa.me/5585999107313?text=Olá, gostaria de comprar a Caneca Professor" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Caneca 8 -->
+                <div class="product-card" data-category="personalizadas">
+                    <div class="product-image">
+                        <img src="/api/placeholder/300/300" alt="Caneca Personalizada com Nome">
+                        <span class="product-tag">Personalizada</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Caneca Personalizada com Nome</h3>
+                        <p class="product-description">Caneca com design exclusivo e nome personalizado. Ideal para presentes únicos e especiais.</p>
+                        <div class="product-price">R$ 38,90</div>
+                        <a href="https://wa.me/5585999107313?text=Olá, gostaria de comprar uma Caneca Personalizada com Nome" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Caneca 9 -->
+                <div class="product-card" data-category="filmes">
+                    <div class="product-image">
+                        <img src="/api/placeholder/300/300" alt="Caneca Harry Potter">
+                        <span class="product-tag">Filmes</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Caneca Harry Potter</h3>
+                        <p class="product-description">Caneca mágica que muda de cor com temperatura, tema Harry Potter com brasões das casas de Hogwarts.</p>
+                        <div class="product-price">R$ 52,90</div>
+                        <a href="https://wa.me/5585999107313?text=Olá, gostaria de comprar a Caneca Harry Potter" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Caneca 10 -->
+                <div class="product-card" data-category="series">
+                    <div class="product-image">
+                        <img src="/api/placeholder/300/300" alt="Caneca Game of Thrones">
+                        <span class="product-tag">Séries</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Caneca Game of Thrones</h3>
+                        <p class="product-description">Caneca preta com o mapa de Westeros e o logo da série. Material cerâmico resistente.</p>
+                        <div class="product-price">R$ 49,90</div>
+                        <a href="https://wa.me/5585999107313?text=Olá, gostaria de compras a Caneca Game of Thrones" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Caneca 11 -->
+                <div class="product-card" data-category="profissoes">
+                    <div class="product-image">
+                        <img src="/api/placeholder/300/300" alt="Caneca Médico">
+                        <span class="product-tag">Profissões</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Caneca Médico</h3>
+                        <p class="product-description">Caneca branca com estetoscópio e símbolos médicos. Presente perfeito para profissionais da saúde.</p>
+                        <div class="product-price">R$ 43,90</div>
+                        <a href="https://wa.me/5585999107313?text=Olá, gostaria de comprar a Caneca Médico" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Caneca 12 -->
+                <div class="product-card" data-category="personalizadas">
+                    <div class="product-image">
+                        <img src="/api/placeholder/300/300" alt="Caneca Casal">
+                        <span class="product-tag">Personalizada</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Caneca Casal Personalizada</h3>
+                        <p class="product-description">Par de canecas personalizadas para casais. Design exclusivo com nomes e data especial.</p>
+                        <div class="product-price">R$ 79,90</div>
+                        <a href="https://wa.me/5585999107313?text=Olá, gostaria de comprar a Caneca Casal Personalizada" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Caneca 13 -->
+                <div class="product-card" data-category="filmes">
+                    <div class="product-image">
+                        <img src="/api/placeholder/300/300" alt="Caneca Senhor dos Anéis">
+                        <span class="product-tag">Filmes</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Caneca Senhor dos Anéis</h3>
+                        <p class="product-description">Caneca preta com o Um Anel e inscrições em élfico. Design elegante para fãs da Terra Média.</p>
+                        <div class="product-price">R$ 48,90</div>
+                        <a href="https://wa.me/5585999107313?text=Olá, gostaria de comprar a Caneca Senhor dos Anéis" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Caneca 14 -->
+                <div class="product-card" data-category="series">
+                    <div class="product-image">
+                        <img src="/api/placeholder/300/300" alt="Caneca Stranger Things">
+                        <span class="product-tag">Séries</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Caneca Stranger Things</h3>
+                        <p class="product-description">Caneca vermelha com o logo e personagens da série Stranger Things. Capacidade: 325ml.</p>
+                        <div class="product-price">R$ 46,90</div>
+                        <a href="https://wa.me/5585999107313?text=Olá, gostaria de comprar a Caneca Stranger Things" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Caneca 15 -->
+                <div class="product-card" data-category="profissoes">
+                    <div class="product-image">
+                        <img src="/api/placeholder/300/300" alt="Caneca Advogado">
+                        <span class="product-tag">Profissões</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Caneca Advogado</h3>
+                        <p class="product-description">Caneca preta com balança da justiça e símbolos jurídicos. Ideal para profissionais do direito.</p>
+                        <div class="product-price">R$ 44,90</div>
+                        <a href="https://wa.me/5585999107313?text=Olá, gostaria de comprar a Caneca Advogado" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Caneca 16 -->
+                <div class="product-card" data-category="personalizadas">
+                    <div class="product-image">
+                        <img src="/api/placeholder/300/300" alt="Caneca Empresa">
+                        <span class="product-tag">Personalizada</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Caneca Corporativa</h3>
+                        <p class="product-description">Canecas personalizadas com logo da sua empresa. Ideais para brindes corporativos e eventos.</p>
+                        <div class="product-price">R$ 36,90</div>
+                        <a href="https://wa.me/5585999107313?text=Olá, gostaria de informações sobre Canecas Corporativas" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Caneca 17 -->
+                <div class="product-card" data-category="filmes">
+                    <div class="product-image">
+                        <img src="/api/placeholder/300/300" alt="Caneca Jurassic Park">
+                        <span class="product-tag">Filmes</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Caneca Jurassic Park</h3>
+                        <p class="product-description">Caneca preta com o icônico logo do Jurassic Park e dinossauros. Material resistente e durável.</p>
+                        <div class="product-price">R$ 45,90</div>
+                        <a href="https://wa.me/5585999107313?text=Olá, gostaria de comprar a Caneca Jurassic Park" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Caneca 18 -->
+                <div class="product-card" data-category="series">
+                    <div class="product-image">
+                        <img src="/api/placeholder/300/300" alt="Caneca The Office">
+                        <span class="product-tag">Séries</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Caneca The Office</h3>
+                        <p class="product-description">Caneca branca com citações e personagens da série The Office. Para fãs de humor no escritório.</p>
+                        <div class="product-price">R$ 43,90</div>
+                        <a href="https://wa.me/5585999107313?text=Olá, gostaria de comprar a Caneca The Office" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Caneca 19 -->
+                <div class="product-card" data-category="profissoes">
+                    <div class="product-image">
+                        <img src="/api/placeholder/300/300" alt="Caneca Engenheiro">
+                        <span class="product-tag">Profissões</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Caneca Engenheiro</h3>
+                        <p class="product-description">Caneca com desenhos técnicos e símbolos de engenharia. Presente criativo para engenheiros.</p>
+                        <div class="product-price">R$ 42,90</div>
+                        <a href="https://wa.me/5585999107313?text=Olá, gostaria de comprar a Caneca Engenheiro" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Caneca 20 -->
+                <div class="product-card" data-category="personalizadas">
+                    <div class="product-image">
+                        <img src="/api/placeholder/300/300" alt="Caneca Mágica">
+                        <span class="product-tag">Personalizada</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Caneca Mágica Personalizada</h3>
+                        <p class="product-description">Caneca que revela a imagem com líquido quente. Personalize com sua foto ou mensagem especial.</p>
+                        <div class="product-price">R$ 54,90</div>
+                        <a href="https://wa.me/5585999107313?text=Olá, gostaria de comprar uma Caneca Mágica Personalizada" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Por que escolher nossas canecas?</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="feature-title">Qualidade Premium</h3>
+                    <p class="feature-description">Nossas canecas são feitas com materiais de alta qualidade, garantindo durabilidade e resistência.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3 class="feature-title">Design Exclusivo</h3>
+                    <p class="feature-description">Trabalhamos com designers talentosos para criar estampas únicas e personalizadas que se destacam.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3 class="feature-title">Entrega Rápida</h3>
+                    <p class="feature-description">Envio para todo o Brasil com rapidez e segurança. Sua caneca chegará bem embalada e protegida.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="feature-title">Satisfação Garantida</h3>
+                    <p class="feature-description">Sua satisfação é nossa prioridade. Oferecemos garantia em todos os nossos produtos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sobre o Reino das Canecas</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="img/quem.jpeg" alt="Sobre o Reino das Canecas">
+                </div>
+                <div class="about-text">
+                    <h3>Uma história de paixão por canecas únicas</h3>
+                    <p>O Reino das Canecas nasceu em 2018 da paixão por criar produtos únicos e personalizados que façam parte do dia a dia das pessoas. Começamos como uma pequena loja online e hoje somos referência em canecas personalizadas no Brasil.</p>
+                    <p>Nossa missão é transformar momentos comuns em experiências especiais através de produtos que contam histórias e expressam personalidades. Trabalhamos com materiais de alta qualidade e técnicas de impressão avançadas para oferecer canecas duráveis e com designs vibrantes.</p>
+                    <p>Atendemos tanto clientes individuais quanto empresas que buscam brindes corporativos personalizados. Cada caneca que produzimos passa por um rigoroso controle de qualidade para garantir que chegue perfeita às mãos de nossos clientes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <h3>Fique por dentro das novidades!</h3>
+            <p>Cadastre-se para receber promoções exclusivas, lançamentos e dicas criativas do Reino das Canecas.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Seu melhor e-mail" required>
+                <button type="submit">Inscrever-se</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Reino das Canecas</h4>
+                    <p>Transformando momentos especiais com canecas únicas e personalizadas desde 2018.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/reinodascanecas_" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://tiktok.com/" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://shopee.com.br/reinodascanecas_?fbclid=PAQ0xDSwKPC4hleHRuA2FlbQIxMAABp1virBQmtPFGqfsbY6kz70OkN4QLg6ygcPuMGljRp-F_dJwJMbvFsMVDfbCv_aem_heeLzYPLY1CB-j6Mt5-sVA" target="_blank"><i class="fas fa-shopping-bag"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#products">Produtos</a></li>
+                        <li><a href="#about">Sobre Nós</a></li>
+                        <li><a href="#contact">Contato</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Categorias</h4>
+                    <ul>
+                        <li><a href="#">Filmes</a></li>
+                        <li><a href="#">Séries</a></li>
+                        <li><a href="#">Profissões</a></li>
+                        <li><a href="#">Personalizadas</a></li>
+                        <li><a href="#">Coleções Especiais</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contato</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Fortaleza, CE - Brasil</li>
+                        <li><i class="fas fa-phone"></i> (85) 99910-7313</li>
+                        <li><i class="fas fa-envelope"></i> contato@reinodascanecas.com.br</li>
+                        <li><i class="fas fa-clock"></i> Seg - Sex: 9h às 18h</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Reino das Canecas. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/5585999107313?text=Olá, gostaria de mais informações sobre as canecas" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i> Fale Conosco
+    </a>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- JavaScript -->
+    <script>
+        // Menu Toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const mainNav = document.getElementById('main-nav');
+
+        navToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
+
+        // Search Functionality
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const productGrid = document.getElementById('product-grid');
+        const productCards = document.querySelectorAll('.product-card');
+
+        searchButton.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        function performSearch() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                productCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+                return;
+            }
+
+            productCards.forEach(card => {
+                const title = card.querySelector('.product-title').textContent.toLowerCase();
+                const description = card.querySelector('.product-description').textContent.toLowerCase();
+                const category = card.getAttribute('data-category').toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm) || category.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Filter Functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filter = button.getAttribute('data-filter');
+                
+                productCards.forEach(card => {
+                    if (filter === 'all') {
+                        card.style.display = 'block';
+                    } else if (card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Newsletter Form
+        const newsletterForm = document.querySelector('.newsletter-form');
+        
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = newsletterForm.querySelector('input').value;
+            
+            // Here you would typically send the email to your server
+            alert(`Obrigado por se inscrever! Em breve você receberá nossas novidades em ${email}`);
+            
+            newsletterForm.reset();
+        });
+
+        // Product animation on scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Apply initial styles and observe each product card
+        document.querySelectorAll('.product-card, .feature-card').forEach(card => {
+            card.style.opacity = 0;
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+    </script>
